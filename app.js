@@ -4,7 +4,7 @@ const cors = require("cors")
 
 
 
-const app=express()
+const app = express()
 app.use(cors())
 app.use(express.json())
 
@@ -13,27 +13,27 @@ mongoose.connect("mongodb://sree:sree123@ac-u3sw13b-shard-00-00.ckegugb.mongodb.
         console.log("MongoDb connected")
     }
 ).catch(
-    (error)=>{
+    (error) => {
         console.log(error)
     })
 
 // ----- Leave Schema ----- //
 const Leave = mongoose.model(
-  "leaves",
-  new mongoose.Schema({
-    leaveRequestId: String,
-    studentId: String,
-    studentName: String,
-    hostelBlock: String,
-    roomNumber: String,
-    department: String,
-    yearOfStudy: String,
-    fromDate: String,
-    toDate: String,
-    reasonForLeave: String,
-    parentContactNumber: String,
-    leaveStatus: String
-  })
+    "leaves",
+    new mongoose.Schema({
+        leaveRequestId: String,
+        studentId: String,
+        studentName: String,
+        hostelBlock: String,
+        roomNumber: String,
+        department: String,
+        yearOfStudy: String,
+        fromDate: String,
+        toDate: String,
+        reasonForLeave: String,
+        parentContactNumber: String,
+        leaveStatus: String
+    })
 );
 
 app.post("/add-leave", async (req, res) => {
@@ -45,64 +45,64 @@ app.post("/add-leave", async (req, res) => {
 
 
 //----- Add Students ------ //
-const student =mongoose.model("Students", new mongoose.Schema(
+const student = mongoose.model("Students", new mongoose.Schema(
     {
-        admissionId:String,
-        studentID:String,
-        name:String,
-        gender:String,
-        dept:String,
-        year:String,
-        hostelBlock:String,
-        roomNo:String,
-        parentName:String,
-        parentNo:String,
-        date:String,
-        wardenName:String
+        admissionId: String,
+        studentID: String,
+        name: String,
+        gender: String,
+        dept: String,
+        year: String,
+        hostelBlock: String,
+        roomNo: String,
+        parentName: String,
+        parentNo: String,
+        date: String,
+        wardenName: String
     }
 ))
 
 
-app.post("/add-student",async (req,res) =>{
+app.post("/add-student", async (req, res) => {
     await student.create(req.body)
-    res.json({"status":"success"})
+    res.json({ "status": "success" })
 })
 
-app.post("/view-students",async(req,res)=>{
-    const students=await student.find()
+app.post("/view-students", async (req, res) => {
+    const students = await student.find()
     res.json(students)
 })
 
 
 
-const logout =mongoose.model("Logout", new mongoose.Schema(
+const logout = mongoose.model("Logout", new mongoose.Schema(
     {
-        logoutId:String,
-        studentID:String,
-        name:String,
-        block:String,
-        roomNo:String,
-        dept:String,
-        year:String,
-        logoutTime:String,
-        logoutDate:String,
-        purpose:String,
-        returnTime:String
+        logoutId: String,
+        studentID: String,
+        name: String,
+        block: String,
+        roomNo: String,
+        dept: String,
+        year: String,
+        logoutTime: String,
+        logoutDate: String,
+        purpose: String,
+        returnTime: String
     }
 ))
 
 
-app.post("/logout",async (req,res) =>{
+app.post("/logout", async (req, res) => {
     await logout.create(req.body)
-    res.json({"status":"success"})
+    res.json({ "status": "success" })
 })
 
-app.post("/view-logout",async(req,res)=>{
-    const logouts=await logout.find()
+app.post("/view-logout", async (req, res) => {
+    const logouts = await logout.find()
     res.json(logouts)
 })
 
-app.listen(3000,()=>{
+app.listen(3000, () => {
     console.log("server started")
 }).catch(
     (error) => {
