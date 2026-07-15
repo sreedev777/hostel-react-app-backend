@@ -17,6 +17,12 @@ mongoose.connect("mongodb://sree:sree123@ac-u3sw13b-shard-00-00.ckegugb.mongodb.
     const HostelLogin = mongoose.model("logins",new mongoose.Schema(
         {
     loginId: String,
+
+// ----- Leave Schema ----- //
+const Leave = mongoose.model(
+  "leaves",
+  new mongoose.Schema({
+    leaveRequestId: String,
     studentId: String,
     studentName: String,
     hostelBlock: String,
@@ -39,3 +45,84 @@ mongoose.connect("mongodb://sree:sree123@ac-u3sw13b-shard-00-00.ckegugb.mongodb.
     app.listen(3000,()=>{
         console.log("server started")
     })
+    fromDate: String,
+    toDate: String,
+    reasonForLeave: String,
+    parentContactNumber: String,
+    leaveStatus: String
+  })
+);
+
+app.post("/add-leave", async (req, res) => {
+    await Leave.create(req.body);
+    res.json({
+        Status: "Success"
+    });
+});
+
+
+//----- Add Students ------ //
+const student =mongoose.model("Students", new mongoose.Schema(
+    {
+        admissionId:String,
+        studentID:String,
+        name:String,
+        gender:String,
+        dept:String,
+        year:String,
+        hostelBlock:String,
+        roomNo:String,
+        parentName:String,
+        parentNo:String,
+        date:String,
+        wardenName:String
+    }
+))
+
+
+app.post("/add-student",async (req,res) =>{
+    await student.create(req.body)
+    res.json({"status":"success"})
+})
+
+app.post("/view-students",async(req,res)=>{
+    const students=await student.find()
+    res.json(students)
+})
+
+
+
+const logout =mongoose.model("Logout", new mongoose.Schema(
+    {
+        logoutId:String,
+        studentID:String,
+        name:String,
+        block:String,
+        roomNo:String,
+        dept:String,
+        year:String,
+        logoutTime:String,
+        logoutDate:String,
+        purpose:String,
+        returnTime:String
+    }
+))
+
+
+app.post("/logout",async (req,res) =>{
+    await logout.create(req.body)
+    res.json({"status":"success"})
+})
+
+app.post("/view-logout",async(req,res)=>{
+    const logouts=await logout.find()
+    res.json(logouts)
+})
+
+app.listen(3000,()=>{
+    console.log("server started")
+}).catch(
+    (error) => {
+        console.log("error")
+    }
+)
