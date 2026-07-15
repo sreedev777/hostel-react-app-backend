@@ -71,6 +71,11 @@ app.post("/logout",async (req,res) =>{
     res.json({"status":"success"})
 })
 
+app.post("/view-logout",async(req,res)=>{
+    const logouts=await logout.find()
+    res.json(logouts)
+})
+
 
 app.listen(3000, () => {
     console.log("Server started")
