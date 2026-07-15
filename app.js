@@ -42,7 +42,10 @@ app.post("/add-student",async (req,res) =>{
     res.json({"status":"success"})
 })
 
-
+app.post("/view-students",async(req,res)=>{
+    const students=await student.find()
+    res.json(students)
+})
 
 
 app.listen(3000, () => {
