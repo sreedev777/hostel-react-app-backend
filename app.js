@@ -44,8 +44,8 @@ app.post("/add-leave", async (req, res) => {
 });
 
 app.post("/view-leave", async (req, res) => {
-  const leaves = await Leave.find();
-  res.json(leaves);
+    const leaves = await Leave.find();
+    res.json(leaves);
 });
 
 //----- Add Students ------ //
@@ -131,5 +131,5 @@ app.post("/view-logout", async (req, res) => {
 });
 
 app.listen(3000, () => {
-  console.log("Server Started");
+    console.log("Server Started");
 });
