@@ -14,6 +14,7 @@ mongoose.connect("mongodb://sree:sree123@ac-u3sw13b-shard-00-00.ckegugb.mongodb.
     (error)=>{
         console.log(error)
     })
+
     app.listen(3000,()=>{
         console.log("server started")
     })
