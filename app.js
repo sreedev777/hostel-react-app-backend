@@ -16,6 +16,9 @@ mongoose.connect("mongodb://sree:sree123@ac-u3sw13b-shard-00-00.ckegugb.mongodb.
     (error)=>{
         console.log(error)
     })
+    const HostelLogin = mongoose.model("logins",new mongoose.Schema(
+        {
+    loginId: String,
 
 // ----- Leave Schema ----- //
 const Leave = mongoose.model(
@@ -28,6 +31,22 @@ const Leave = mongoose.model(
     roomNumber: String,
     department: String,
     yearOfStudy: String,
+    loginDate: String,
+    loginTime: String,
+    attendanceStatus: String
+}
+    ))
+    app.post("/login-add",async(req,res)=>{
+        await HostelLogin.create(req.body)
+        res.json(logins)
+    })
+    app.get("/login-view",async(req,res)=>{
+        const logins=await HostelLogin.find()
+        res.json(logins)
+    })
+    app.listen(3000,()=>{
+        console.log("server started")
+    })
     fromDate: String,
     toDate: String,
     reasonForLeave: String,
