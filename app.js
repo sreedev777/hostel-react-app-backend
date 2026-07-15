@@ -77,8 +77,6 @@ app.post("/view-students",async(req,res)=>{
     res.json(students)
 })
 
-
-
 const logout =mongoose.model("Logout", new mongoose.Schema(
     {
         logoutId:String,
