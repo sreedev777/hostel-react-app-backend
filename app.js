@@ -43,6 +43,10 @@ app.post("/add-leave", async (req, res) => {
     });
 });
 
+app.post("/view-leave", async (req, res) => {
+    const leaves = await Leave.find();
+    res.json(leaves);
+});
 
 //----- Add Students ------ //
 const student =mongoose.model("Students", new mongoose.Schema(
@@ -102,10 +106,6 @@ app.post("/view-logout",async(req,res)=>{
     res.json(logouts)
 })
 
-app.listen(3000,()=>{
-    console.log("server started")
-}).catch(
-    (error) => {
-        console.log("error")
-    }
-)
+app.listen(3000, () => {
+    console.log("Server Started");
+});
