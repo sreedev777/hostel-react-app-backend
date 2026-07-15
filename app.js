@@ -48,6 +48,38 @@ app.post("/view-leave", async (req, res) => {
     res.json(leaves);
 });
 
+app.post("/delete-leave", async (req, res) => {
+    try {
+        const { _id } = req.body;
+        await Leave.findByIdAndDelete(_id);
+        res.json({
+            status: "success",
+            message: "Deleted successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: "Failed to delete leave",
+        });
+    }
+});
+
+app.post("/update-leave", async (req, res) => {
+    try {
+        const updatedLeave = req.body;
+        await Leave.findByIdAndUpdate(updatedLeave._id, updatedLeave);
+        res.json({
+            status: "success",
+            message: "Updated successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: "Failed to update leave",
+        });
+    }
+});
+
 //----- Add Students ------ //
 const student = mongoose.model(
     "Students",
