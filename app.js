@@ -109,68 +109,6 @@ app.post("/update-student", async (req, res) => {
     }
 });
 
-app.post("/delete-login", async (req, res) => {
-    try {
-        const { _id } = req.body;
-        await HostelLogin.findByIdAndDelete(_id);
-        res.json({
-            status: "success",
-            message: "Deleted successfully",
-        });
-    } catch (error) {
-        res.status(500).json({
-            status: "error",
-            message: "Failed to delete login record",
-        });
-    }
-});
-app.post("/update-login", async (req, res) => {
-    try {
-        const updatedLogin = req.body;
-        await HostelLogin.findByIdAndUpdate(updatedLogin._id, updatedLogin);
-        res.json({
-            status: "success",
-            message: "Updated successfully",
-        });
-    } catch (error) {
-        res.status(500).json({
-            status: "error",
-            message: "Failed to update login record",
-        });
-    }
-});
-
-app.post("/delete-logout", async (req, res) => {
-    try {
-        const { _id } = req.body;
-        await logout.findByIdAndDelete(_id);
-        res.json({
-            status: "success",
-            message: "Deleted successfully",
-        });
-    } catch (error) {
-        res.status(500).json({
-            status: "error",
-            message: "Failed to delete logout record",
-        });
-    }
-});
-app.post("/update-logout", async (req, res) => {
-    try {
-        const updatedLogout = req.body;
-        await logout.findByIdAndUpdate(updatedLogout._id, updatedLogout);
-        res.json({
-            status: "success",
-            message: "Updated successfully",
-        });
-    } catch (error) {
-        res.status(500).json({
-            status: "error",
-            message: "Failed to update logout record",
-        });
-    }
-});
-
 //-----LogIn-----//
 const HostelLogin = mongoose.model(
     "logins",
@@ -194,6 +132,38 @@ app.post("/login-add", async (req, res) => {
 app.get("/login-view", async (req, res) => {
     const logins = await HostelLogin.find();
     res.json(logins);
+});
+
+app.post("/delete-login", async (req, res) => {
+    try {
+        const { _id } = req.body;
+        await HostelLogin.findByIdAndDelete(_id);
+        res.json({
+            status: "success",
+            message: "Deleted successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: "Failed to delete login",
+        });
+    }
+});
+
+app.post("/update-login", async (req, res) => {
+    try {
+        const updatedLogin = req.body;
+        await HostelLogin.findByIdAndUpdate(updatedLogin._id, updatedLogin);
+        res.json({
+            status: "success",
+            message: "Updated successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: "Failed to update login",
+        });
+    }
 });
 
 //-----LogOut-----//
@@ -222,6 +192,38 @@ app.post("/logout", async (req, res) => {
 app.post("/view-logout", async (req, res) => {
     const logouts = await logout.find();
     res.json(logouts);
+});
+
+app.post("/delete-logout", async (req, res) => {
+    try {
+        const { _id } = req.body;
+        await logout.findByIdAndDelete(_id);
+        res.json({
+            status: "success",
+            message: "Deleted successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: "Failed to delete logout",
+        });
+    }
+});
+
+app.post("/update-logout", async (req, res) => {
+    try {
+        const updatedLogout = req.body;
+        await logout.findByIdAndUpdate(updatedLogout._id, updatedLogout);
+        res.json({
+            status: "success",
+            message: "Updated successfully",
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            message: "Failed to update logout",
+        });
+    }
 });
 
 app.listen(3000, () => {
