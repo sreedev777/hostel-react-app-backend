@@ -1,0 +1,49 @@
+const express = require("express")
+const mongoose = require("mongoose")
+const cors = require("cors")
+
+
+const app = express()
+app.use(cors())
+app.use(express.json())
+
+mongoose.connect("mongodb://sree:sree123@ac-u3sw13b-shard-00-00.ckegugb.mongodb.net:27017,ac-u3sw13b-shard-00-01.ckegugb.mongodb.net:27017,ac-u3sw13b-shard-00-02.ckegugb.mongodb.net:27017/hosteldb?ssl=true&replicaSet=atlas-3xyrxx-shard-0&authSource=admin&appName=Cluster0").then(
+    () => {
+        console.log("MongoDb connected")
+    }
+).catch(
+    (error) => {
+        console.log("error")
+    }
+)
+
+
+const student =mongoose.model("Students", new mongoose.Schema(
+    {
+        admissionId:String,
+        studentName:String,
+        name:String,
+        gender:String,
+        dept:String,
+        year:String,
+        hosteloBlock:String,
+        roomNo:String,
+        parentName:String,
+        parentNo:String,
+        date:String,
+        wardenName:String
+    }
+))
+
+
+app.post("/add-student",async (req,res) =>{
+    await student.create(req.body)
+    res.json({"status":"success"})
+})
+
+
+
+
+app.listen(3000, () => {
+    console.log("Server started")
+})
