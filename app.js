@@ -22,12 +22,12 @@ mongoose.connect("mongodb://sree:sree123@ac-u3sw13b-shard-00-00.ckegugb.mongodb.
 const student =mongoose.model("Students", new mongoose.Schema(
     {
         admissionId:String,
-        studentName:String,
+        studentID:String,
         name:String,
         gender:String,
         dept:String,
         year:String,
-        hosteloBlock:String,
+        hostelBlock:String,
         roomNo:String,
         parentName:String,
         parentNo:String,
@@ -45,6 +45,30 @@ app.post("/add-student",async (req,res) =>{
 app.post("/view-students",async(req,res)=>{
     const students=await student.find()
     res.json(students)
+})
+
+
+
+const logout =mongoose.model("Logout", new mongoose.Schema(
+    {
+        logoutId:String,
+        studentID:String,
+        name:String,
+        block:String,
+        roomNo:String,
+        dept:String,
+        year:String,
+        logoutTime:String,
+        logoutDate:String,
+        purpose:String,
+        returnTime:String
+    }
+))
+
+
+app.post("/logout",async (req,res) =>{
+    await logout.create(req.body)
+    res.json({"status":"success"})
 })
 
 
